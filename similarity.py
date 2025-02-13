@@ -55,25 +55,25 @@ most_sim_docs = (0,0)
 for i in range(len(docTermMatrix)):
   for j in range(len(docTermMatrix)):
     if i != j:
-      x = docTermMatrix[i].copy() # testing purposes
-      y = docTermMatrix[j].copy() # testing purposes
-      master_list = list(set(list(docTermMatrix[i].keys()) + list(docTermMatrix[j].keys()))) #union of keys
-      for key in x.keys():
-        if key not in y:
-          y[key] = 0
-      for key in y.keys():
+      x = docTermMatrix[i]
+      y = docTermMatrix[j]
+      all_keys = list(set(x.keys()).union(set(y.keys())))
+      for key in all_keys:
         if key not in x:
           x[key] = 0
-      x = dict(sorted(x.items())) # sort y
-      y = dict(sorted(y.items())) # sort x
+        if key not in y:
+          y[key] = 0
+      x_sorted = []
+      y_sorted = []
+      for key in sorted(all_keys):
+        x_sorted.append(x[key])
+        y_sorted.append(y[key])
+      sim = cosine_similarity([x_sorted], [y_sorted])
+      if sim > highest_sim:
+        highest_sim = sim
+        most_sim_docs = (i,j)
       
-      
-
-print(x)
-print("\n\n")
-print(y)
-print("\n\n")
-print(master_list)
+print("The most similar documents are document", most_sim_docs[0], "and document", most_sim_docs[1], "with cosine similarity =", highest_sim)
 
 
 # Compare the pairwise cosine similarities and store the highest one
