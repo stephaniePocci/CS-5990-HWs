@@ -1,2 +1,2 @@
-# Assignment-1-5990
-GitHub Submission for Assignment 1 (CS 5990 - 01)
+# CS 5990 Homework Submissions
+GitHub submissions for CS 5990
